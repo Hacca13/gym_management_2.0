@@ -6,7 +6,10 @@ function MyNavbar() {
     return (
         <Navbar bg="light" expand={false}>
             <Container fluid>
-                <Navbar.Brand href="#">Fit & Fight</Navbar.Brand>
+                <Navbar.Brand href="/home">
+
+                    Fit & Fight
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="offcanvasNavbar" />
                 <Navbar.Offcanvas
                     id="offcanvasNavbar"
@@ -18,25 +21,22 @@ function MyNavbar() {
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Nav className="justify-content-end flex-grow-1 pe-3">
-                            <Nav.Link href="#action1">Gestione Schede</Nav.Link>
-                            <Nav.Link href="#action2">Link</Nav.Link>
-                            <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
-                                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action5">
-                                    Something else here
-                                </NavDropdown.Item>
-                            </NavDropdown>
+                            <Nav.Link href="/gestione-utenti">Gestione Utenti</Nav.Link>
+                            <Nav.Link href="/gestione-schede">Gestione Schede</Nav.Link>
+                            <Nav.Link href="/gestione-abbonamenti">Gestione Abbonamenti</Nav.Link>
+                            <Nav.Link href="/gestione-prenotazioni">Gestione Prenotazioni</Nav.Link>
+                            <Nav.Link href="/gestione-esercizi">Gestione Esercizi</Nav.Link>
+
                         </Nav>
+                        <br/>
                         <Form className="d-flex">
                             <FormControl
                                 type="search"
-                                placeholder="Search"
+                                placeholder="Ricerca"
                                 className="me-2"
-                                aria-label="Search"
+                                aria-label="Ricerca"
                             />
-                            <Button variant="outline-success">Search</Button>
+                            <Button variant="outline-success">Cerca</Button>
                         </Form>
                     </Offcanvas.Body>
                 </Navbar.Offcanvas>
