@@ -1,18 +1,32 @@
-import React from "react";
-import {Accordion, Col, Form, Nav, Row, Tab,} from "react-bootstrap";
+import React, { useState } from "react";
+import {Accordion, Alert, Button, Col, Form, Nav, Row, Tab,} from "react-bootstrap";
 import MyNavbar from "../componets/myNavbar";
 import '../css/newUserPage.css';
 import TabUserData from "../componets/componentsNewUser/tabUserData";
 import TabPliconometricData from "../componets/componentsNewUser/tabPlicometricData";
 import TabTutorData from "../componets/componentsNewUser/tabTutorData";
 
+
+
+
+const submitInsertNewUser= () =>{
+    console.log("submit");
+    <Alert  variant={'success'}>
+        Utente Registrato con successo!
+    </Alert>
+
+}
+
+
 function NewUserPage(){
+
+
     return(
         <>
             <MyNavbar/>
             <div>
                 <h1 className='title'>Inserimento Nuovo Utente</h1>
-                <Form>
+                <Form onSubmit={submitInsertNewUser}>
                     <div className='tab-container'>
                         <Tab.Container id="left-tabs-example" defaultActiveKey="first" >
                             <Row>
@@ -25,7 +39,7 @@ function NewUserPage(){
                                             <Nav.Link eventKey="second">Dati Pliconometrici</Nav.Link>
                                         </Nav.Item>
                                         <Nav.Item>
-                                            <Nav.Link eventKey="third">Dati Tutore</Nav.Link>
+                                            <Nav.Link eventKey="third" disabled={true}>Dati Tutore</Nav.Link>
                                         </Nav.Item>
                                     </Nav>
                                 </Col>
@@ -44,6 +58,12 @@ function NewUserPage(){
                                 </Col>
                             </Row>
                         </Tab.Container>
+
+                        <div style={{float:'right', marginTop: '2%'}}>
+                            <Button variant="primary" type="submit" >
+                                Aggiungi
+                            </Button>
+                        </div>
                     </div>
                 </Form>
 
