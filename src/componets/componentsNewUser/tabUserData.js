@@ -11,19 +11,27 @@ function TabUserData(){
 
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
+    const [email, setEmail] = useState("");
     const [gender, setGender] = useState("A");
-    const [email, setEmail] = useState("A");
+    const [telephoneNumber, setTelephoneNumber] = useState("");
+
     const [password, setPassword] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [birthplace, setBirthplace] = useState("");
     const [birthplaceProvince, setBirthplaceProvince] = useState("");
     const [cfValue, setCfValue] = useState("");
 
+    const [cityOfResidence, setCityOfResidence] = useState("");
+    const [streetResidence, setStreetResidence] = useState("");
+    const [numberResidence, setNumberResidence] = useState("");
+    const [capResidence, setCapResidence] = useState("");
+    const [typeDocument, setTypeDocument] = useState("");
+    const [numberDocument, setNumberDocument] = useState("");
+    const [releasedDocument, setReleasedDocument] = useState("");
+    const [releaseDateDocument, setReleaseDateDocument] = useState("");
+    const [imageDocument, setImageDocument] = useState("");
 
     const [checkPassword, setCheckPassword] = useState(false);
-
-
-
 
     const saveName = (e) =>{
         setName(e.target.value);
@@ -46,6 +54,41 @@ function TabUserData(){
     const saveFiscalCode = (e) => {
         setCfValue(e.target.value);
     }
+    const saveEmail = (e) =>{
+        setEmail(e.target.value);
+    }
+    const saveTelephoneNumber = (e) =>{
+        setTelephoneNumber(e.target.value);
+    }
+    const saveCityOfResidence = (e) =>{
+        setCityOfResidence(e.target.value);
+    }
+    const saveStreetResidence = (e) =>{
+        setStreetResidence(e.target.value);
+    }
+    const saveNumberResidence = (e) =>{
+        setNumberResidence(e.target.value);
+    }
+    const saveCapResidence = (e) =>{
+        setCapResidence(e.target.value);
+    }
+    const saveTypeDocument = (e) =>{
+        setTypeDocument(e.target.value);
+    }
+    const saveNumberDocument = (e) =>{
+        setNumberDocument(e.target.value);
+    }
+    const saveReleasedDocument = (e) => {
+        setReleasedDocument(e.target.value);
+    }
+    const saveReleaseDateDocument = (e) =>{
+        setReleaseDateDocument(e.target.value);
+    }
+    const saveImageDocument = (e) =>{
+        setImageDocument(e.target.value);
+    }
+
+
 
     const calculateFiscalCode = () =>{
         if(name.trim()!== "" && surname.trim()!== "" && dateOfBirth.trim()!== "" && gender!=="A" && birthplace.trim()!=="" && birthplaceProvince.trim()!==""){
@@ -91,6 +134,11 @@ function TabUserData(){
                         <Form.Control type="text" required placeholder="Cognome" onBlur={saveSurname}/>
                     </FloatingLabel>
                 </Form.Group>
+                <Form.Group as={Col} controlId="user-email">
+                    <FloatingLabel className="mb-3" label="Email">
+                        <Form.Control type="email" required placeholder="Email" onBlur={saveEmail}/>
+                    </FloatingLabel>
+                </Form.Group>
             </Row>
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="user-gender" >
@@ -102,9 +150,9 @@ function TabUserData(){
                     </div>
 
                 </Form.Group>
-                <Form.Group as={Col} controlId="user-email">
-                    <FloatingLabel className="mb-3" label="Email">
-                        <Form.Control type="email" required placeholder="Email"/>
+                <Form.Group as={Col} controlId="user-telephone-number">
+                    <FloatingLabel className="mb-3" label="Numero di Telefono">
+                        <Form.Control type="text" required placeholder="Numero di Telefono" onBlur={saveTelephoneNumber}/>
                     </FloatingLabel>
                 </Form.Group>
             </Row>
@@ -136,15 +184,70 @@ function TabUserData(){
             </Row>
             <Row className="mb-3">
                 <SelectProvince seveProvince={saveBirthplaceProvince}/>
-                <Form.Group as={Col} md="5" controlId="user-fiscal-code">
+                <Form.Group as={Col} md="6" controlId="user-fiscal-code">
                     <FloatingLabel className="mb-3" label="Codice Fiscale">
                         <Form.Control type="text" value={cfValue} onChange={saveFiscalCode} placeholder="Codice Fiscale"/>
                     </FloatingLabel>
                 </Form.Group>
                 <Button style={{marginBottom:"2%"}} size="sm" variant="secondary" className="col-md-2" onClick={calculateFiscalCode}>Calcola</Button>
             </Row>
+            <Row className="mb-3">
+                <Form.Group as={Col} md="4" controlId="user-city-of-residence">
+                    <FloatingLabel className="mb-3" label="Città di residenza">
+                        <Form.Control type="text"  placeholder="Città di residenza" onBlur={saveCityOfResidence}/>
+                    </FloatingLabel>
+                </Form.Group>
+                <Form.Group as={Col} md="4" controlId="user-street-residence">
+                    <FloatingLabel className="mb-3" label="Via">
+                        <Form.Control type="text"  placeholder="Via" onBlur={saveStreetResidence}/>
+                    </FloatingLabel>
+                </Form.Group>
+                <Form.Group as={Col} md="2" controlId="user-number-residence">
+                    <FloatingLabel className="mb-3" label="Numero">
+                        <Form.Control type="text"  placeholder="Numero" onBlur={saveNumberResidence}/>
+                    </FloatingLabel>
+                </Form.Group>
+                <Form.Group as={Col} md="2" controlId="user-cap-residence">
+                    <FloatingLabel className="mb-3" label="CAP">
+                        <Form.Control type="text"  placeholder="CAP" onBlur={saveCapResidence}/>
+                    </FloatingLabel>
+                </Form.Group>
+            </Row>
+            <Row className="mb-3">
+                <Form.Group as={Col} md="5" controlId="user-type-document">
+                    <FloatingLabel  label="Seleziona il Tipo di Documento">
+                        <Form.Select aria-label="Tipo di Documento" onChange={saveTypeDocument}>
+                            <option value="">Non Specificato</option>
+                            <option value="carta d'identità">Carta D'Identità</option>
+                            <option value="patente">Patente</option>
+                            <option value="passaporto">Passaporto</option>
+                        </Form.Select>
+                    </FloatingLabel>
+                </Form.Group>
+                <Form.Group as={Col} md="3" controlId="user-number-document">
+                    <FloatingLabel className="mb-3" label="Numero">
+                        <Form.Control type="text"  placeholder="Numero" onBlur={saveNumberDocument}/>
+                    </FloatingLabel>
+                </Form.Group>
 
-
+                <Form.Group as={Col} md="4" controlId="user-release-date-document">
+                    <FloatingLabel className="mb-3" label="Data di Rilascio">
+                        <Form.Control type="date"  placeholder="Data di Rilascio" onChange={saveReleaseDateDocument}/>
+                    </FloatingLabel>
+                </Form.Group>
+            </Row>
+            <Row className="mb-3">
+                <Form.Group as={Col}  controlId="user-released-document">
+                    <FloatingLabel className="mb-3" label="Rilasciato da">
+                        <Form.Control type="text"  placeholder="Rilasciato da" onBlur={saveReleasedDocument}/>
+                    </FloatingLabel>
+                </Form.Group>
+                <Form.Group as={Col}  controlId="user-image-document">
+                    <FloatingLabel className="mb-3" label="Carica Documento">
+                        <Form.Control type="file"  placeholder="Carica Documento" onChange={saveImageDocument}/>
+                    </FloatingLabel>
+                </Form.Group>
+            </Row>
         </Container>
     );
 }
