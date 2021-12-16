@@ -1,10 +1,11 @@
 import React from "react";
-import {FloatingLabel, Form} from "react-bootstrap";
+import {Col, FloatingLabel, Form, Row} from "react-bootstrap";
 
-function SelectProvince(){
+function SelectProvince(props){
     return(
-        <FloatingLabel controlId="floatingSelectGrid" label="Seleziona la Provicia">
-            <Form.Select aria-label="Provincia">
+        <Form.Group as={Col} md="5" controlId="user-birthplace-province">
+            <FloatingLabel  label="Seleziona la Provicia di Nascita">
+            <Form.Select aria-label="Provincia" onChange={props.seveProvince}>
                 <option value="">Non Specificato</option>
                 <option value="AG">Agrigento</option>
                 <option value="AL">Alessandria</option>
@@ -119,6 +120,8 @@ function SelectProvince(){
                 <option value="VT">Viterbo</option>
             </Form.Select>
         </FloatingLabel>
+        </Form.Group>
+
     );
 }
 

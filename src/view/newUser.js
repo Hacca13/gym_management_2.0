@@ -30,7 +30,7 @@ function NewUserPage(){
                     <div className='tab-container'>
                         <Tab.Container id="left-tabs-example" defaultActiveKey="first" >
                             <Row>
-                                <Col sm={3}>
+                                <Col sm={2}>
                                     <Nav variant="pills" className="flex-column">
                                         <Nav.Item>
                                             <Nav.Link eventKey="first">Dati Utente</Nav.Link>
@@ -43,7 +43,7 @@ function NewUserPage(){
                                         </Nav.Item>
                                     </Nav>
                                 </Col>
-                                <Col sm={9}>
+                                <Col sm={10}>
                                     <Tab.Content>
                                         <Tab.Pane eventKey="first">
                                             <TabUserData />
