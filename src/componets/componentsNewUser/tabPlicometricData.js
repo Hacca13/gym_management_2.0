@@ -1,11 +1,18 @@
 import React from "react";
+import {Container, Row} from "react-bootstrap";
 
 
 function TabPlicometricData(){
 
     return(
-        <> lollo 2
-        </>
+        <Container>
+            <Row className="mb-3">
+                <h3>Dati Pliconometrici:</h3>
+            </Row>
+            <Row className="mb-3">
+
+            </Row>
+        </Container>
     );
 }
 

@@ -3,7 +3,7 @@ import {Col, FloatingLabel, Form, Row} from "react-bootstrap";
 
 function SelectProvince(props){
     return(
-        <Form.Group as={Col} md="4" controlId="user-birthplace-province">
+        <Form.Group as={Col} md="6" controlId="user-birthplace-province">
             <FloatingLabel  label="Seleziona la Provicia di Nascita">
             <Form.Select aria-label="Provincia" onChange={props.seveProvince}>
                 <option value="">Non Specificato</option>

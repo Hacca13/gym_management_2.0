@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {Container, Form, Row, Col, FloatingLabel, Button, Alert} from "react-bootstrap";
 import '../../css/newUserPage.css';
 import SelectProvince from "./selectProvince";
@@ -7,95 +7,128 @@ import CodiceFiscale from "calcolo-codice-fiscale";
 
 
 
-function TabUserData(){
+function TabUserData(props){
 
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
-    const [email, setEmail] = useState("");
     const [gender, setGender] = useState("A");
-    const [telephoneNumber, setTelephoneNumber] = useState("");
-
     const [password, setPassword] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [birthplace, setBirthplace] = useState("");
     const [birthplaceProvince, setBirthplaceProvince] = useState("");
-    const [cfValue, setCfValue] = useState("");
+    const [fiscalCode, setFiscalCode] = useState("");
 
-    const [cityOfResidence, setCityOfResidence] = useState("");
-    const [streetResidence, setStreetResidence] = useState("");
-    const [numberResidence, setNumberResidence] = useState("");
-    const [capResidence, setCapResidence] = useState("");
-    const [typeDocument, setTypeDocument] = useState("");
-    const [numberDocument, setNumberDocument] = useState("");
-    const [releasedDocument, setReleasedDocument] = useState("");
-    const [releaseDateDocument, setReleaseDateDocument] = useState("");
-    const [imageDocument, setImageDocument] = useState("");
+    const [publicSocial, setPublicSocial] = useState(false);
+
 
     const [checkPassword, setCheckPassword] = useState(false);
 
     const saveName = (e) =>{
         setName(e.target.value);
+        props.refreshUser("name",e.target.value);
     }
     const saveSurname = (e) =>{
         setSurname(e.target.value);
+        props.refreshUser("surname",e.target.value);
+
     }
-    const saveDateOfBirth = (e) =>{
-        setDateOfBirth(e.target.value);
+    const saveEmail = (e) =>{
+        props.refreshUser("email",e.target.value);
     }
     const saveGender = (e) =>{
         setGender(e.target.value);
+        props.refreshUser("gender",e.target.value);
+    }
+    const saveTelephoneNumber = (e) =>{
+        props.refreshUser("telephoneNumber",e.target.value);
+    }
+    const savePassword = (e) =>{
+        setPassword(e.target.value);
+        props.refreshUser("password",e.target.value);
+    }
+    const saveDateOfBirth = (e) =>{
+        const dateUser = e.target.value;
+        const dateToday = new Date();
+        const todayDay = dateToday.getDate();
+        const todayMonth = dateToday.getMonth()+1;
+        const todayYear = dateToday.getFullYear();
+        const today = todayYear + "-" + todayMonth + "-" + todayDay;
+        const year18old = todayYear-18;
+        const date18yearsOld = year18old + "-" + todayMonth + "-" + todayDay;
+
+        if(dateUser > today){
+            alert("Veramente l'utente è nato nel futuro? ")
+        }
+        else{
+            setDateOfBirth(e.target.value);
+            props.refreshUser("dateOfBirth",e.target.value);
+            if(dateUser > date18yearsOld){
+                props.refreshUser("isAdult",false);
+            }
+            else{
+                props.refreshUser("isAdult",true);
+            }
+        }
     }
     const saveBirthplace = (e) =>{
         setBirthplace(e.target.value);
+        props.refreshUser("birthplace",e.target.value);
     }
     const saveBirthplaceProvince = (e) =>{
         setBirthplaceProvince(e.target.value);
+        props.refreshUser("birthplaceProvince",e.target.value);
     }
     const saveFiscalCode = (e) => {
-        setCfValue(e.target.value);
+        setFiscalCode(e.target.value);
+        props.refreshUser("fiscalCode",e.target.value);
     }
-    const saveEmail = (e) =>{
-        setEmail(e.target.value);
-    }
-    const saveTelephoneNumber = (e) =>{
-        setTelephoneNumber(e.target.value);
-    }
+
     const saveCityOfResidence = (e) =>{
-        setCityOfResidence(e.target.value);
+        props.refreshUser("cityOfResidence",e.target.value);
     }
     const saveStreetResidence = (e) =>{
-        setStreetResidence(e.target.value);
+        props.refreshUser("streetResidence",e.target.value);
     }
     const saveNumberResidence = (e) =>{
-        setNumberResidence(e.target.value);
+        props.refreshUser("numberResidence",e.target.value);
     }
     const saveCapResidence = (e) =>{
-        setCapResidence(e.target.value);
+        props.refreshUser("capResidence",e.target.value);
     }
+
     const saveTypeDocument = (e) =>{
-        setTypeDocument(e.target.value);
+        props.refreshUser("typeDocument",e.target.value);
     }
     const saveNumberDocument = (e) =>{
-        setNumberDocument(e.target.value);
-    }
-    const saveReleasedDocument = (e) => {
-        setReleasedDocument(e.target.value);
+        props.refreshUser("numberDocument",e.target.value);
     }
     const saveReleaseDateDocument = (e) =>{
-        setReleaseDateDocument(e.target.value);
+        props.refreshUser("releaseDateDocument",e.target.value);
+    }
+    const saveReleasedDocument = (e) => {
+        props.refreshUser("releasedDocument",e.target.value);
     }
     const saveImageDocument = (e) =>{
-        setImageDocument(e.target.value);
+        props.refreshUser("imageDocument",e.target.value);
     }
 
-
+    const saveMedicalCertificate = (e) =>{
+        props.refreshUser("medicalCertificate",e.target.value);
+    }
+    const savePublicSocial = (e) =>{
+       setPublicSocial(!publicSocial);
+    }
+    useEffect(() => {
+        props.refreshUser("publicSocial",publicSocial);
+    }, [publicSocial]);
 
     const calculateFiscalCode = () =>{
         if(name.trim()!== "" && surname.trim()!== "" && dateOfBirth.trim()!== "" && gender!=="A" && birthplace.trim()!=="" && birthplaceProvince.trim()!==""){
             var data = dateOfBirth.split('-');
             try {
                 var cf = CodiceFiscale.compute(name,surname,gender,data[2],data[1],data[0],birthplace,birthplaceProvince);
-                setCfValue(cf);
+                setFiscalCode(cf);
+                props.refreshUser("fiscalCode",fiscalCode);
             }catch (e) {
                 alert("Alcuni dati per calcolare il codice fiscale non sono inseriti correttamente!");
             }
@@ -104,10 +137,6 @@ function TabUserData(){
             alert("Alcuni dati per calcolare il codice fiscale non sono inseriti correttamente!");
         }
 
-    }
-
-    const savePassword = (e) =>{
-        setPassword(e.target.value);
     }
 
     const checkPasswordFunction = (e) => {
@@ -122,6 +151,9 @@ function TabUserData(){
 
     return(
         <Container>
+            <Row className="mb-3">
+                <h3>Generalità:</h3>
+            </Row>
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="user-name">
                     <FloatingLabel className="mb-3" label="Nome">
@@ -144,11 +176,10 @@ function TabUserData(){
                 <Form.Group as={Col} controlId="user-gender" >
                     <Form.Label>Genere</Form.Label>
                     <div style={{display:"flex"}}>
-                        <Form.Check type="radio" label="Uomo" controlId="user-male" name="user-male" value="M" style={{ marginRight:"10px"}} onChange={saveGender}/>
-                        <Form.Check type="radio" label="Donna" controlId="user-female" name="user-female" value="F" style={{ marginRight:"10px"}} onChange={saveGender}/>
-                        <Form.Check type="radio" label="Altro"  controlId="user-other" name="user-other" value="A" style={{ marginRight:"10px"}} onChange={saveGender}/>
+                        <Form.Check type="radio" label="Uomo" controlId="user-male" name="user-genger" value="M" style={{ marginRight:"10px"}} onChange={saveGender}/>
+                        <Form.Check type="radio" label="Donna" controlId="user-female" name="user-genger" value="F" style={{ marginRight:"10px"}} onChange={saveGender}/>
+                        <Form.Check type="radio" label="Altro"  controlId="user-other" name="user-genger" value="A" style={{ marginRight:"10px"}} onChange={saveGender}/>
                     </div>
-
                 </Form.Group>
                 <Form.Group as={Col} controlId="user-telephone-number">
                     <FloatingLabel className="mb-3" label="Numero di Telefono">
@@ -180,18 +211,33 @@ function TabUserData(){
                         <Form.Control type="text" placeholder="Città di Nascita" onBlur={saveBirthplace}/>
                     </FloatingLabel>
                 </Form.Group>
-
             </Row>
             <Row className="mb-3">
                 <SelectProvince seveProvince={saveBirthplaceProvince}/>
-                <Form.Group as={Col} md="6" controlId="user-fiscal-code">
+                <Form.Group as={Col} md="4" controlId="user-fiscal-code">
                     <FloatingLabel className="mb-3" label="Codice Fiscale">
-                        <Form.Control type="text" value={cfValue} onChange={saveFiscalCode} placeholder="Codice Fiscale"/>
+                        <Form.Control type="text" value={fiscalCode} onChange={saveFiscalCode} placeholder="Codice Fiscale"/>
                     </FloatingLabel>
                 </Form.Group>
                 <Button style={{marginBottom:"2%"}} size="sm" variant="secondary" className="col-md-2" onClick={calculateFiscalCode}>Calcola</Button>
             </Row>
+
+            <Row className="mb-3" >
+                <Form.Group as={Col} md="5" controlId="user-date-medical-certificate">
+                    <FloatingLabel className="mb-3" label="Data di Rilascio Certificato Medico">
+                        <Form.Control type="date"  placeholder="Data di Rilascio Certificato Medico" onChange={saveMedicalCertificate}/>
+                    </FloatingLabel>
+                </Form.Group>
+                <Form.Group as={Col} md="5" style={{paddingTop:'2%',marginLeft:'5%'}}>
+                    <Form.Check  type="switch" id="user-public-social" label="Permesso alla pubblicazione sui social" onChange={savePublicSocial}/>
+                </Form.Group>
+            </Row>
+
             <Row className="mb-3">
+                <h3>Residente in:</h3>
+            </Row>
+            <Row className="mb-3">
+
                 <Form.Group as={Col} md="4" controlId="user-city-of-residence">
                     <FloatingLabel className="mb-3" label="Città di residenza">
                         <Form.Control type="text"  placeholder="Città di residenza" onBlur={saveCityOfResidence}/>
@@ -214,11 +260,14 @@ function TabUserData(){
                 </Form.Group>
             </Row>
             <Row className="mb-3">
+                <h3>Documento:</h3>
+            </Row>
+            <Row className="mb-3">
                 <Form.Group as={Col} md="5" controlId="user-type-document">
                     <FloatingLabel  label="Seleziona il Tipo di Documento">
                         <Form.Select aria-label="Tipo di Documento" onChange={saveTypeDocument}>
                             <option value="">Non Specificato</option>
-                            <option value="carta d'identità">Carta D'Identità</option>
+                            <option value="carta d'identità">Carta d'identità</option>
                             <option value="patente">Patente</option>
                             <option value="passaporto">Passaporto</option>
                         </Form.Select>
@@ -243,11 +292,12 @@ function TabUserData(){
                     </FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col}  controlId="user-image-document">
-                    <FloatingLabel className="mb-3" label="Carica Documento">
-                        <Form.Control type="file"  placeholder="Carica Documento" onChange={saveImageDocument}/>
-                    </FloatingLabel>
+                    <Form.Control type="file"  placeholder="Carica Documento" onChange={saveImageDocument}/>
                 </Form.Group>
             </Row>
+
+
+
         </Container>
     );
 }
