@@ -43,8 +43,15 @@ function TabUserData(props){
         props.refreshUser("telephoneNumber",e.target.value);
     }
     const savePassword = (e) =>{
-        setPassword(e.target.value);
-        props.refreshUser("password",e.target.value);
+        if(e.target.value.length >5 && e.target.value.length <20 ){
+            setPassword(e.target.value);
+            props.refreshUser("password",e.target.value);
+            setCheckPassword(false);
+        }
+        else{
+            setCheckPassword(true);
+        }
+
     }
     const saveDateOfBirth = (e) =>{
         const dateUser = e.target.value;
@@ -85,15 +92,27 @@ function TabUserData(props){
 
     const saveCityOfResidence = (e) =>{
         props.refreshUser("cityOfResidence",e.target.value);
+        if (props.flagForResidence){
+            props.refreshTutorData("parentCityOfResidence",e.target.value);
+        }
     }
     const saveStreetResidence = (e) =>{
         props.refreshUser("streetResidence",e.target.value);
+        if (props.flagForResidence){
+            props.refreshTutorData("parentStreetResidence",e.target.value);
+        }
     }
     const saveNumberResidence = (e) =>{
         props.refreshUser("numberResidence",e.target.value);
+        if (props.flagForResidence){
+            props.refreshTutorData("parentNumberResidence",e.target.value);
+        }
     }
     const saveCapResidence = (e) =>{
         props.refreshUser("capResidence",e.target.value);
+        if (props.flagForResidence){
+            props.refreshTutorData("parentCapResidence",e.target.value);
+        }
     }
 
     const saveTypeDocument = (e) =>{
@@ -116,7 +135,7 @@ function TabUserData(props){
         props.refreshUser("medicalCertificate",e.target.value);
     }
     const savePublicSocial = (e) =>{
-       setPublicSocial(!publicSocial);
+        setPublicSocial(!publicSocial);
     }
     useEffect(() => {
         props.refreshUser("publicSocial",publicSocial);
@@ -150,12 +169,12 @@ function TabUserData(props){
     }
 
     return(
-        <Container>
+        <Container >
             <Row className="mb-3">
                 <h3>Generalità:</h3>
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} controlId="user-name">
+                <Form.Group as={Col}  controlId="user-name">
                     <FloatingLabel className="mb-3" label="Nome">
                         <Form.Control type="text" required placeholder="Nome" onBlur={saveName} />
                     </FloatingLabel>
@@ -183,23 +202,29 @@ function TabUserData(props){
                 </Form.Group>
                 <Form.Group as={Col} controlId="user-telephone-number">
                     <FloatingLabel className="mb-3" label="Numero di Telefono">
-                        <Form.Control type="text" required placeholder="Numero di Telefono" onBlur={saveTelephoneNumber}/>
+                        <Form.Control type="text"  placeholder="Numero di Telefono" onBlur={saveTelephoneNumber}/>
                     </FloatingLabel>
                 </Form.Group>
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} controlId="user-password">
-                    <FloatingLabel className="mb-3" label="Password">
-                        <Form.Control type="password" required placeholder="Password" isInvalid={checkPassword} onBlur={savePassword}/>
-                    </FloatingLabel>
-                </Form.Group>
+                    <Form.Group as={Col} controlId="user-password">
+                        <FloatingLabel className="mb-3" label="Password">
+                            <Form.Control type="password" required placeholder="Password" isInvalid={checkPassword} onBlur={savePassword}/>
+                        </FloatingLabel>
+                    </Form.Group>
 
-                <Form.Group as={Col} controlId="user-checkPassword">
-                    <FloatingLabel className="mb-3" label="Conferma Password">
-                        <Form.Control type="password" required placeholder="Conferma Password" onBlur={checkPasswordFunction}/>
-                    </FloatingLabel>
-                </Form.Group>
+                    <Form.Group as={Col} controlId="user-checkPassword">
+                        <FloatingLabel className="mb-3" label="Conferma Password">
+                            <Form.Control type="password" required placeholder="Conferma Password" onBlur={checkPasswordFunction}/>
+                        </FloatingLabel>
+                    </Form.Group>
             </Row>
+            <Row className="mb-3" style={{marginTop:"-1%"}}>
+                <Form.Text id="passwordHelpBlock" muted>
+                    La Password deve essere lunga tra gli 6 e 20 caratteri, può contenere lettere, numeri e caratteri speciali ma non può contenere spazi o emoji.
+                </Form.Text>
+            </Row>
+
             <Row className="mb-3">
                 <Form.Group as={Col}  controlId="user-date-of-birth" >
                     <FloatingLabel className="mb-3" label="Data di Nascita">

@@ -4,6 +4,10 @@ import SelectProvince from "./selectProvince";
 import CodiceFiscale from "calcolo-codice-fiscale";
 
 function TabparentData(props){
+
+
+    const [flagForResidence,setFlagForResidence] = useState(true);
+
     const [parentName, setParentName] = useState("");
     const [parentSurname, setParentSurname] = useState("");
     const [parentGender, setParentGender] = useState("A");
@@ -11,6 +15,11 @@ function TabparentData(props){
     const [parentBirthplace, setParentBirthplace] = useState("");
     const [parentBirthplaceProvince, setParentBirthplaceProvince] = useState("");
     const [parentFiscalCode, setParentFiscalCode] = useState("");
+
+    const [parentCityOfResidence, setParentCityOfResidence] = useState("");
+    const [parentStreetResidence, setParentStreetResidence] = useState("");
+    const [parentNumberResidence, setParentNumberResidence] = useState("");
+    const [parentCapResidence, setParentCapResidence] = useState("A");
 
     const saveParentName = (e) =>{
         setParentName(e.target.value);
@@ -69,15 +78,47 @@ function TabparentData(props){
     }
 
     const saveParentCityOfResidence = (e) =>{
+        setParentCityOfResidence(e.target.value);
+        if(props.flagForResidence){
+            props.refreshTutorData("parentCityOfResidence","");
+            props.refreshTutorData("parentStreetResidence","");
+            props.refreshTutorData("parentNumberResidence","");
+            props.refreshTutorData("parentCapResidence","");
+        }
+        props.settingFlagForResidence(false);
         props.refreshTutorData("parentCityOfResidence",e.target.value);
     }
     const saveParentStreetResidence = (e) =>{
+        setParentStreetResidence(e.target.value);
+        if(props.flagForResidence){
+            props.refreshTutorData("parentCityOfResidence","");
+            props.refreshTutorData("parentStreetResidence","");
+            props.refreshTutorData("parentNumberResidence","");
+            props.refreshTutorData("parentCapResidence","");
+        }
+        props.settingFlagForResidence(false);
         props.refreshTutorData("parentStreetResidence",e.target.value);
     }
     const saveParentNumberResidence = (e) =>{
+        setParentNumberResidence(e.target.value);
+        if(props.flagForResidence){
+            props.refreshTutorData("parentCityOfResidence","");
+            props.refreshTutorData("parentStreetResidence","");
+            props.refreshTutorData("parentNumberResidence","");
+            props.refreshTutorData("parentCapResidence","");
+        }
+        props.settingFlagForResidence(false);
         props.refreshTutorData("parentNumberResidence",e.target.value);
     }
     const saveParentCapResidence = (e) =>{
+        setParentCapResidence(e.target.value);
+        if(props.flagForResidence){
+            props.refreshTutorData("parentCityOfResidence","");
+            props.refreshTutorData("parentStreetResidence","");
+            props.refreshTutorData("parentNumberResidence","");
+            props.refreshTutorData("parentCapResidence","");
+        }
+        props.settingFlagForResidence(false);
         props.refreshTutorData("parentCapResidence",e.target.value);
     }
 
@@ -123,18 +164,18 @@ function TabparentData(props){
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="user-name-parent">
                     <FloatingLabel className="mb-3" label="Nome Tutore">
-                        <Form.Control type="text" required placeholder="Nome Tutore" onBlur={saveParentName} />
+                        <Form.Control type="text"  placeholder="Nome Tutore" onBlur={saveParentName} />
                     </FloatingLabel>
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="user-surname-parent">
                     <FloatingLabel className="mb-3" label="Cognome Tutore">
-                        <Form.Control type="text" required placeholder="Cognome Tutore" onBlur={saveParentSurname}/>
+                        <Form.Control type="text"  placeholder="Cognome Tutore" onBlur={saveParentSurname}/>
                     </FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col} controlId="user-email-parent">
                     <FloatingLabel className="mb-3" label="Email">
-                        <Form.Control type="email"  placeholder="Email" onBlur={saveParentEmail} />
+                        <Form.Control type="email" placeholder="Email" onBlur={saveParentEmail} />
                     </FloatingLabel>
                 </Form.Group>
             </Row>
@@ -150,7 +191,7 @@ function TabparentData(props){
                 </Form.Group>
                 <Form.Group as={Col} controlId="user-telephone-number-parent">
                     <FloatingLabel className="mb-3" label="Numero di Telefono">
-                        <Form.Control type="text" required placeholder="Numero di Telefono" onBlur={saveParentTelephoneNumber}/>
+                        <Form.Control type="text"  placeholder="Numero di Telefono" onBlur={saveParentTelephoneNumber}/>
                     </FloatingLabel>
                 </Form.Group>
             </Row>
@@ -182,22 +223,22 @@ function TabparentData(props){
             <Row className="mb-3">
                 <Form.Group as={Col} md="4" controlId="user-city-of-residence-parent">
                     <FloatingLabel className="mb-3" label="Città di residenza">
-                        <Form.Control type="text"  placeholder="Città di residenza" onBlur={saveParentCityOfResidence}/>
+                        <Form.Control type="text" value={ props.flagForResidence ? props.residenceUser.cityOfResidence:parentCityOfResidence } placeholder="Città di residenza" onChange={saveParentCityOfResidence}/>
                     </FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="user-street-residence-parent">
                     <FloatingLabel className="mb-3" label="Via">
-                        <Form.Control type="text"  placeholder="Via" onBlur={saveParentStreetResidence}/>
+                        <Form.Control type="text" value={ props.flagForResidence ? props.residenceUser.streetResidence:parentStreetResidence } placeholder="Via" onChange={saveParentStreetResidence}/>
                     </FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col} md="2" controlId="user-number-residence-parent">
                     <FloatingLabel className="mb-3" label="Numero">
-                        <Form.Control type="text"  placeholder="Numero" onBlur={saveParentNumberResidence}/>
+                        <Form.Control type="text" value={ props.flagForResidence ? props.residenceUser.numberResidence:parentNumberResidence } placeholder="Numero" onChange={saveParentNumberResidence}/>
                     </FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col} md="2" controlId="user-cap-residence-parent">
                     <FloatingLabel className="mb-3" label="CAP">
-                        <Form.Control type="text"  placeholder="CAP" onBlur={saveParentCapResidence}/>
+                        <Form.Control type="text" value={ props.flagForResidence ? props.residenceUser.capResidence:parentCapResidence } placeholder="CAP" onChange={saveParentCapResidence}/>
                     </FloatingLabel>
                 </Form.Group>
             </Row>

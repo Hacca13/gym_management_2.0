@@ -1,24 +1,25 @@
 import React, {useEffect, useState} from "react";
 import { Alert, Button, Col, Form, Nav, Row, Tab,} from "react-bootstrap";
+
+import { useNavigate } from "react-router-dom";
+
 import MyNavbar from "../componets/myNavbar";
 import '../css/newUserPage.css';
 import TabUserData from "../componets/componentsNewUser/tabUserData";
 import TabPliconometricData from "../componets/componentsNewUser/tabPlicometricData";
 import TabTutorData from "../componets/componentsNewUser/tabTutorData";
 
+const prefixLinkAdmin = "/admin";
 
 
 
-const submitInsertNewUser= () =>{
-    console.log("submit");
-    <Alert  variant={'success'}>
-        Utente Registrato con successo!
-    </Alert>
-}
+
 
 
 function NewUserPage(){
+    const navigate = useNavigate();
     const [isAdult, setIsAdult] = useState(true);
+    const [flagForResidence,setFlagForResidence] = useState(true);
 
     const [newUser, setNewUser] = useState({
         'idUserDatabase':'',
@@ -80,8 +81,28 @@ function NewUserPage(){
             'parentImageDocument':'',
         }
     });
-    const [plicometricData,setPlicometricData] = useState();
+    const [plicometricData,setPlicometricData] = useState({
+            "weight": "",
+            "height": "",
+            "imc":"",
+            "hypertrophy":false,
+            "slimming":false,
+            "toning":false,
+            "athleticTraining":false,
+            "rehabilitation":false,
+            "combatSports":false,
+            "otherGoals":"",
+            "previousSport": "",
+            "previousSportTime":"",
+            "inactiveTime":"",
+            "plicometricData":"",
+            "importantInformation":"",
 
+        });
+
+    const settingFlagForResidence = (state) =>{
+        setFlagForResidence(state);
+    }
     const refreshUser = (dataToBeModified,dataValue) =>{
 
         const  constNewUser = newUser;
@@ -155,7 +176,7 @@ function NewUserPage(){
         if(dataToBeModified === 'imageDocument'){
             constNewUser.document.imageDocument = dataValue;
         }
-        console.log(constNewUser.publicSocial);
+
         setNewUser(constNewUser);
     }
     const refreshTutorData = (dataToBeModified,dataValue) =>{
@@ -218,11 +239,66 @@ function NewUserPage(){
         if(dataToBeModified === 'parentImageDocument'){
             constTutorData.parentDocument.parentImageDocument = dataValue;
         }
-
+        console.log(constTutorData);
+        console.log(isAdult);
+        console.log(flagForResidence);
         setTutorData(constTutorData);
     }
     const refreshPlicometricData = (dataToBeModified,dataValue) => {
+        const  constPlicometricData = plicometricData;
 
+        if(dataToBeModified === 'weight'){
+            plicometricData.weight = dataValue;
+        }
+        if(dataToBeModified === 'height'){
+            plicometricData.height = dataValue;
+        }
+        if(dataToBeModified === 'imc'){
+            plicometricData.imc = dataValue;
+        }
+        if(dataToBeModified === 'hypertrophy'){
+            plicometricData.hypertrophy = dataValue;
+        }
+        if(dataToBeModified === 'slimming'){
+            plicometricData.slimming = dataValue;
+        }
+        if(dataToBeModified === 'toning'){
+            plicometricData.toning = dataValue;
+        }
+        if(dataToBeModified === 'athleticTraining'){
+            plicometricData.athleticTraining = dataValue;
+        }
+        if(dataToBeModified === 'rehabilitation'){
+            plicometricData.rehabilitation = dataValue;
+        }
+        if(dataToBeModified === 'combatSports'){
+            plicometricData.combatSports = dataValue;
+        }
+        if(dataToBeModified === 'otherGoals'){
+            plicometricData.otherGoals = dataValue;
+        }
+        if(dataToBeModified === 'previousSport'){
+            plicometricData.previousSport = dataValue;
+        }
+        if(dataToBeModified === 'previousSportTime'){
+            plicometricData.previousSportTime = dataValue;
+        }
+        if(dataToBeModified === 'inactiveTime'){
+            plicometricData.inactiveTime = dataValue;
+        }
+        if(dataToBeModified === 'plicometricData'){
+            plicometricData.plicometricData = dataValue;
+        }
+        if(dataToBeModified === 'importantInformation'){
+            plicometricData.importantInformation = dataValue;
+        }
+        console.log(constPlicometricData);
+       setPlicometricData(constPlicometricData);
+    }
+
+    const submitInsertNewUser= () =>{
+            console.log("submit");
+            navigate(prefixLinkAdmin+"/home");
     }
 
     return(
@@ -250,13 +326,13 @@ function NewUserPage(){
                                 <Col sm={10}>
                                     <Tab.Content>
                                         <Tab.Pane eventKey="first">
-                                            <TabUserData refreshUser={refreshUser}/>
+                                            <TabUserData refreshUser={refreshUser} refreshTutorData={refreshTutorData} flagForResidence={flagForResidence} />
                                         </Tab.Pane>
                                         <Tab.Pane eventKey="second">
                                             <TabPliconometricData refreshPlicometricData={refreshPlicometricData}/>
                                         </Tab.Pane>
                                         <Tab.Pane eventKey="third">
-                                            <TabTutorData refreshTutorData={refreshTutorData}/>
+                                            <TabTutorData refreshTutorData={refreshTutorData} residenceUser={newUser.residence} flagForResidence={flagForResidence} settingFlagForResidence={settingFlagForResidence}/>
                                         </Tab.Pane>
                                     </Tab.Content>
                                 </Col>

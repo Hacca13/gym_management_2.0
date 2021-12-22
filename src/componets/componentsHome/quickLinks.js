@@ -2,12 +2,13 @@ import React from "react";
 import {Container, ListGroup} from "react-bootstrap";
 import profile_user_icon from "../../icon/profile-user.png";
 
-const linkNewUser = '/nuovo-utente';
-const linkNewTrainingCard = '/nuova-scheda';
-const linkNewSubscriptions = '/nuovo-abbonamento';
-const linkNewCourse = '/nuova-corso';
-const linkNewExercise = '/nuovo-esercizio';
-const linkAddUserToCourse = '/aggiungi-un-utente-al-corso';
+const prefixLink ="/admin";
+const linkNewUser = prefixLink+'/nuovo-utente';
+const linkNewTrainingCard = prefixLink+'/nuova-scheda';
+const linkNewSubscriptions = prefixLink+'/nuovo-abbonamento';
+const linkNewCourse = prefixLink+'/nuova-corso';
+const linkNewExercise = prefixLink+'/nuovo-esercizio';
+const linkAddUserToCourse = prefixLink+'/aggiungi-un-utente-al-corso';
 
 function QuickLinks(){
     return (
@@ -18,10 +19,12 @@ function QuickLinks(){
                     <p style={{marginTop:'10%'}}>Nuovo Utente</p>
                 </ListGroup.Item>
                 <ListGroup.Item  variant='secondary' action href={linkNewTrainingCard} className='quick-link'>
-                    Nuova Scheda
+                    <img src={profile_user_icon} style={{width:'50px',height:'50px'}}/>
+                    <p style={{marginTop:'10%'}}>Nuova Scheda</p>
                 </ListGroup.Item>
                 <ListGroup.Item variant='secondary' action href={linkNewSubscriptions} className='quick-link'>
-                    Nuovo Abbonamento
+                    <img src={profile_user_icon} style={{width:'50px',height:'50px'}}/>
+                    <p style={{marginTop:'10%'}}>Nuovo Abbonamento</p>
                 </ListGroup.Item>
                 <ListGroup.Item variant='secondary' action href={linkNewCourse} className='quick-link'>
                     Nuovo Corso
