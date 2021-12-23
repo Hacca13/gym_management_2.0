@@ -5,6 +5,7 @@ import Home from "./view/home";
 import MyLoader from "./componets/myLoader";
 import PageNotFound from "./view/404";
 import NewUserPage from "./view/newUser";
+import NewSubscriptionsPage from "./view/newSubscriptions";
 
 const prefixLink ="/admin";
 const linkHome = prefixLink+'/home';
@@ -23,6 +24,8 @@ function App() {
                     <Route exact path={prefixLink} element={<Home/>}/>
                     <Route exact path={linkHome} element={<Home/>}/>
                     <Route exact path={linkNewUser} element={<NewUserPage/>}/>
+
+                    <Route exact path={linkNewSubscriptions} element={<NewSubscriptionsPage/>}/>
                     <Route path="*" element={<PageNotFound/>}/>
 
 

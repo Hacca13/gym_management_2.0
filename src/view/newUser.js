@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import { Alert, Button, Col, Form, Nav, Row, Tab,} from "react-bootstrap";
-
 import { useNavigate } from "react-router-dom";
 
 import MyNavbar from "../componets/myNavbar";
@@ -9,8 +8,8 @@ import TabUserData from "../componets/componentsNewUser/tabUserData";
 import TabPliconometricData from "../componets/componentsNewUser/tabPlicometricData";
 import TabTutorData from "../componets/componentsNewUser/tabTutorData";
 
-const prefixLinkAdmin = "/admin";
-
+const prefixLink ="/admin";
+const linkUserManagement = prefixLink+'/gestione-utenti';
 
 
 
@@ -176,7 +175,6 @@ function NewUserPage(){
         if(dataToBeModified === 'imageDocument'){
             constNewUser.document.imageDocument = dataValue;
         }
-
         setNewUser(constNewUser);
     }
     const refreshTutorData = (dataToBeModified,dataValue) =>{
@@ -239,9 +237,6 @@ function NewUserPage(){
         if(dataToBeModified === 'parentImageDocument'){
             constTutorData.parentDocument.parentImageDocument = dataValue;
         }
-        console.log(constTutorData);
-        console.log(isAdult);
-        console.log(flagForResidence);
         setTutorData(constTutorData);
     }
     const refreshPlicometricData = (dataToBeModified,dataValue) => {
@@ -298,7 +293,7 @@ function NewUserPage(){
 
     const submitInsertNewUser= () =>{
             console.log("submit");
-            navigate(prefixLinkAdmin+"/home");
+            navigate(linkUserManagement);
     }
 
     return(
