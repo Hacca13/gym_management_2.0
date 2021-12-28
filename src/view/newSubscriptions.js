@@ -31,6 +31,12 @@ function NewSubscriptionsPage(){
         "totalAmount": 0,
         "amountReceived":0,
         "amountIsPaid":true,
+        "payments": [
+            {
+                "paymentDate":"",
+                "amount":"",
+            }
+        ]
     });
     const [userData, setUserData] = useState({
         "name": "",
@@ -55,44 +61,13 @@ function NewSubscriptionsPage(){
     });
 
     const [typeSubscription, setTypeSubscription] = useState("period");
-    const [userList,setUserList] = useState([
-        {
-            "name": "Giovanni",
-            "surname": "Belga",
-            "idUserDatabase": "001",
-        },
-        {
-            "name": "Vincenzo",
-            "surname": "Portoricano",
-            "idUserDatabase": "002"
-        },
-        {
-            "name": "Paolo",
-            "surname": "Commendatore",
-            "idUserDatabase": "003"
-        },
-    ]);
+    const [userList,setUserList] = useState([]
+    );
 
 
 
     const searchUserForSubscription = async (e) =>{
-        const userListSearch = [
-            {
-                "name": "Giorgio",
-                "surname": "Baaa",
-                "idUserDatabase": "001",
-            },
-            {
-                "name": "Vincenssssszo",
-                "surname": "Portossssssricano",
-                "idUserDatabase": "002"
-            },
-            {
-                "name": "Paosssssslo",
-                "surname": "Comssssmendatore",
-                "idUserDatabase": "003"
-            },
-        ]  ;
+        const userListSearch = []  ;
 
         setUserList(userListSearch)
     };
@@ -168,7 +143,15 @@ function NewSubscriptionsPage(){
             constNewSubscription.totalAmount = dataValue;
         }
         if(dataToBeModified === 'amountReceived'){
+            const dateToday = new Date();
+            const todayDay = dateToday.getDate();
+            const todayMonth = dateToday.getMonth()+1;
+            const todayYear = dateToday.getFullYear();
+            const today = todayYear + "-" + todayMonth + "-" + todayDay;
             constNewSubscription.amountReceived = dataValue;
+            constNewSubscription.payments[0].paymentDate = today;
+            constNewSubscription.payments[0].amount = dataValue;
+
         }
         if(dataToBeModified === 'considerTheBalanceInTheStatistics'){
             constNewSubscription.considerTheBalanceInTheStatistics = dataValue;
@@ -180,10 +163,8 @@ function NewSubscriptionsPage(){
         else{
             constNewSubscription.amountIsPaid = false;
         }
-
         setNewSubscription(constNewSubscription);
         checkDisabledSubmit();
-        console.log(newSubscription);
     };
     const refreshPeriodSubscription = (dataToBeModified,dataValue) => {
         const constPeriodSubscription = periodSubscription;
@@ -244,7 +225,6 @@ function NewSubscriptionsPage(){
                 refreshSubscription("isActive",true);
             }
         }
-
         setCourseSubscription(constCourseSubscription);
         checkDisabledSubmit();
     };
@@ -257,26 +237,46 @@ function NewSubscriptionsPage(){
         if(dataToBeModified === 'numberOfEntriesMade'){
             constRevenueSubscription.numberOfEntriesMade = dataValue;
         }
-        if(constRevenueSubscription.numberOfEntries !== 0){
-            if(constRevenueSubscription.numberOfEntries === constRevenueSubscription.numberOfEntriesMade){
-                refreshSubscription("isActive",false);
-            }
-            else {
-                refreshSubscription("isActive",true);
-            }
+
+        if(constRevenueSubscription.numberOfEntries === constRevenueSubscription.numberOfEntriesMade){
+            refreshSubscription("isActive",false);
         }
+        else {
+            refreshSubscription("isActive",true);
+        }
+
 
         setRevenueSubscription(constRevenueSubscription);
         checkDisabledSubmit();
     };
+
     useEffect(() => {
         checkDisabledSubmit();
     }, [typeSubscription]);
 
     const submitInsertNewSubscriptions= () =>{
-        console.log("submit");
-         navigate(linkSubscriptionsManagement);
+        var newSubscriptionFinal = newSubscription;
+        if(typeSubscription === "period"){
+            newSubscriptionFinal.startDate = periodSubscription.startDate;
+            newSubscriptionFinal.endDate =  periodSubscription.endDate;
+        }
+        if(typeSubscription === "revenue"){
+            newSubscriptionFinal.numberOfEntries = revenueSubscription.numberOfEntries;
+            newSubscriptionFinal.numberOfEntriesMade = revenueSubscription.numberOfEntriesMade;
+        }
+        if(typeSubscription === "course"){
+            newSubscriptionFinal.idCourseDatabase = courseSubscription.idCourseDatabase;
+            newSubscriptionFinal.startDate = courseSubscription.startDate;
+            newSubscriptionFinal.endDate =  courseSubscription.endDate;
+        }
+        /*
+        *   inviare i dati al server
+        *
+        * */
+
+        navigate(linkSubscriptionsManagement);
     };
+
 
     return(
         <>
@@ -357,7 +357,6 @@ function NewSubscriptionsPage(){
                                     <h3 style={{marginLeft:"3%",marginBottom:"4%"}}>Saldo:</h3>
                                 </Row>
                                 <Row >
-
                                     <Form.Group as={Col} md={5} controlId="subscription-total-amount" style={{marginLeft:"3%"}}>
                                         <FloatingLabel className="mb-3" label="Importo Totale">
                                             <Form.Control type="number"  placeholder="Importo Totale" onBlur={(e)=>{
@@ -372,7 +371,6 @@ function NewSubscriptionsPage(){
                                             }}/>
                                         </FloatingLabel>
                                     </Form.Group>
-
                                 </Row>
                                 <Row>
                                     <Form.Group as={Col}  style={{paddingTop:'2%',marginLeft:'5%'}}>
@@ -384,7 +382,7 @@ function NewSubscriptionsPage(){
                         </Row>
 
                         {typeSubscription === "period" ? (<FormPeriodSubscription periodSubscription={periodSubscription} refreshPeriodSubscription={refreshPeriodSubscription}/>):""}
-                        {typeSubscription === "revenue" ? (<FormRevenueSubscription refreshRevenueSubscription={refreshRevenueSubscription}/>):""}
+                        {typeSubscription === "revenue" ? (<FormRevenueSubscription revenueSubscription={revenueSubscription} refreshRevenueSubscription={refreshRevenueSubscription}/>):""}
                         {typeSubscription === "course" ? (<FormCourseSubscription courseSubscription={courseSubscription} refreshCourseSubscription={refreshCourseSubscription}/>):""}
 
                         <div style={{float:'right', marginTop: '2%', marginBottom:"3%"}}>
@@ -395,6 +393,7 @@ function NewSubscriptionsPage(){
                     </Container>
                 </Form>
             </div>
+
         </>
     );
 }
