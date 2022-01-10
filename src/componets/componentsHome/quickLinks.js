@@ -6,7 +6,7 @@ const prefixLink ="/admin";
 const linkNewUser = prefixLink+'/nuovo-utente';
 const linkNewTrainingCard = prefixLink+'/nuova-scheda';
 const linkNewSubscriptions = prefixLink+'/nuovo-abbonamento';
-const linkNewCourse = prefixLink+'/nuova-corso';
+const linkNewCourse = prefixLink+'/nuovo-corso';
 const linkNewExercise = prefixLink+'/nuovo-esercizio';
 const linkAddUserToCourse = prefixLink+'/aggiungi-un-utente-al-corso';
 

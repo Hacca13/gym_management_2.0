@@ -9,7 +9,7 @@ function FormRevenueSubscription(props){
 
 
     useEffect(() => {
-        if(numberOfEntriesMade<numberOfEntries){
+        if(numberOfEntriesMade>numberOfEntries){
             setCheckNumberEntriesMade(true);
         }
         else{
@@ -40,8 +40,11 @@ function FormRevenueSubscription(props){
                         <FloatingLabel className="mb-3" label="Numero di entrate effettuate">
                             <Form.Control type="number" value={numberOfEntriesMade} isInvalid={checkNumberEntriesMade} placeholder="Numero di entrate effettuate" onChange={(e)=>{
                                if(e.target.value>=0){
-                                   setNumberOfEntriesMade(e.target.value);
-                                   props.refreshRevenueSubscription('numberOfEntriesMade',e.target.value);
+                                   if(e.target.value<=numberOfEntries){
+                                       setNumberOfEntriesMade(e.target.value);
+                                       props.refreshRevenueSubscription('numberOfEntriesMade',e.target.value);
+                                   }
+
                                }
 
                             }}/>

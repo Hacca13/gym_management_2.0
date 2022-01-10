@@ -67,9 +67,12 @@ function NewSubscriptionsPage(){
 
 
     const searchUserForSubscription = async (e) =>{
+        const userDataTemp = userData;
+        userDataTemp.name = e.target.value;
+        setUserData(userDataTemp);
         const userListSearch = []  ;
 
-        setUserList(userListSearch)
+        setUserList(userListSearch);
     };
     const checkDisabledSubmit = () =>{
         const type = typeSubscription;

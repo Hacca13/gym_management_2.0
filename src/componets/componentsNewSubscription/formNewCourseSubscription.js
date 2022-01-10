@@ -10,18 +10,7 @@ function FormCourseSubscription(props){
     const [checkEndDateValue,setCheckEndDateValue] = useState(false);
 
     const [courseList,setCourseList] = useState([
-        {
-            "idCourseDatabase":"991",
-            "nameCourse":"Calcio"
-        },
-        {
-            "idCourseDatabase":"992",
-            "nameCourse":"Basket"
-        },
-        {
-            "idCourseDatabase":"993",
-            "nameCourse":"Tennis"
-        },
+
     ]);
     const searchCourseForSubscription = () => {
 
