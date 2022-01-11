@@ -19,7 +19,7 @@ function QuickLinks(){
                     <p style={{marginTop:'10%'}}>Nuovo Utente</p>
                 </ListGroup.Item>
                 <ListGroup.Item  variant='secondary' action href={linkNewTrainingCard} className='quick-link'>
-                    <img src={profile_user_icon} style={{width:'50px',height:'50px'}}/>
+
                     <p style={{marginTop:'10%'}}>Nuova Scheda</p>
                 </ListGroup.Item>
                 <ListGroup.Item variant='secondary' action href={linkNewSubscriptions} className='quick-link'>
@@ -27,10 +27,12 @@ function QuickLinks(){
                     <p style={{marginTop:'10%'}}>Nuovo Abbonamento</p>
                 </ListGroup.Item>
                 <ListGroup.Item variant='secondary' action href={linkNewCourse} className='quick-link'>
-                    Nuovo Corso
+                    <img src={profile_user_icon} style={{width:'50px',height:'50px'}}/>
+                    <p style={{marginTop:'10%'}}>Nuovo Corso</p>
                 </ListGroup.Item>
                 <ListGroup.Item variant='secondary' action href={linkNewExercise} className='quick-link'>
-                    Nuovo Esercizio
+                    <img src={profile_user_icon} style={{width:'50px',height:'50px'}}/>
+                    <p style={{marginTop:'10%'}}>Nuovo Esercizio</p>
                 </ListGroup.Item>
                 <ListGroup.Item variant='secondary' action href={linkAddUserToCourse} className='quick-link'>
                     Aggiungi un utente ad un Corso

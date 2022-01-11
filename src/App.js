@@ -7,6 +7,7 @@ import PageNotFound from "./view/404";
 import NewUserPage from "./view/newUser";
 import NewSubscriptionsPage from "./view/newSubscriptions";
 import NewCoursePage from "./view/newCourse";
+import NewExercisePage from "./view/newExercise";
 
 const prefixLink ="/admin";
 const linkHome = prefixLink+'/home';
@@ -30,6 +31,7 @@ function App() {
 
                     <Route exact path={linkNewSubscriptions} element={<NewSubscriptionsPage/>}/>
                     <Route exact path={linkNewCourse} element={<NewCoursePage/>}/>
+                    <Route exact path={linkNewExercise} element={<NewExercisePage nameExercise={""} imageExercise={""} secondaryMusclesSelected={[]} primaryMusclesSelected={[]} isTheExerciseTime={false} linkExercise={""} descriptionExercise={""}/>}/>
                     <Route path="*" element={<PageNotFound/>}/>
 
 
