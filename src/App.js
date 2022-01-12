@@ -8,6 +8,8 @@ import NewUserPage from "./view/newUser";
 import NewSubscriptionsPage from "./view/newSubscriptions";
 import NewCoursePage from "./view/newCourse";
 import NewExercisePage from "./view/newExercise";
+import ModificationExercisePage from "./view/modificationExercise";
+import AddUserToCourse from "./view/addUserToCourse";
 
 const prefixLink ="/admin";
 const linkHome = prefixLink+'/home';
@@ -17,6 +19,7 @@ const linkNewSubscriptions = prefixLink+'/nuovo-abbonamento';
 const linkNewCourse = prefixLink+'/nuovo-corso';
 const linkNewExercise = prefixLink+'/nuovo-esercizio';
 const linkAddUserToCourse = prefixLink+'/aggiungi-un-utente-al-corso';
+const linkModificationExercise = prefixLink+'/modifica-esercizio/:idExercise';
 
 function App() {
 
@@ -32,6 +35,9 @@ function App() {
                     <Route exact path={linkNewSubscriptions} element={<NewSubscriptionsPage/>}/>
                     <Route exact path={linkNewCourse} element={<NewCoursePage/>}/>
                     <Route exact path={linkNewExercise} element={<NewExercisePage nameExercise={""} imageExercise={""} secondaryMusclesSelected={[]} primaryMusclesSelected={[]} isTheExerciseTime={false} linkExercise={""} descriptionExercise={""}/>}/>
+                    <Route exact path={linkAddUserToCourse} element={<AddUserToCourse />} />
+
+
                     <Route path="*" element={<PageNotFound/>}/>
 
 

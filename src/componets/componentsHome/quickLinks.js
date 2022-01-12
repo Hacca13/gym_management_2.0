@@ -1,6 +1,7 @@
 import React from "react";
 import {Container, ListGroup} from "react-bootstrap";
 import profile_user_icon from "../../icon/profile-user.png";
+import AddUserToCourse from "../../view/addUserToCourse";
 
 const prefixLink ="/admin";
 const linkNewUser = prefixLink+'/nuovo-utente';
@@ -11,6 +12,7 @@ const linkNewExercise = prefixLink+'/nuovo-esercizio';
 const linkAddUserToCourse = prefixLink+'/aggiungi-un-utente-al-corso';
 
 function QuickLinks(){
+    const [modalShow, setModalShow] = React.useState(false);
     return (
         <Container>
             <ListGroup horizontal className='quick-links'>
@@ -34,10 +36,14 @@ function QuickLinks(){
                     <img src={profile_user_icon} style={{width:'50px',height:'50px'}}/>
                     <p style={{marginTop:'10%'}}>Nuovo Esercizio</p>
                 </ListGroup.Item>
-                <ListGroup.Item variant='secondary' action href={linkAddUserToCourse} className='quick-link'>
+                <ListGroup.Item variant='secondary' action  onClick={() => setModalShow(true)} className='quick-link'>
                     Aggiungi un utente ad un Corso
                 </ListGroup.Item>
             </ListGroup>
+            <AddUserToCourse
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
         </Container>
 
     );

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import MyNavbar from "../componets/myNavbar";
 import {Button, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {MultiSelect} from "react-multi-select-component";
 
 const prefixLink ="/admin";
@@ -20,8 +20,8 @@ var muscleSecondOptions = [
 
 
 
-function NewExercisePage(){
-
+function ModificationExercisePage(props){
+    let { idExercise } = useParams();
     const navigate = useNavigate();
     const [disabledSubmit,setDisabledSubmit] = useState(true);
     const [nameExercise,setNameExercise] = useState("");
@@ -29,9 +29,11 @@ function NewExercisePage(){
     const [isTheExerciseTime,setIsTheExerciseTime] = useState(false);
     const [linkExercise,setLinkExercise] = useState("");
 
-    const [primaryMusclesSelected, setPrimaryMusclesSelected] = useState("");
+    const [oldImageExercise,setOldImageExercise] = useState("");
+
+    const [primaryMusclesSelected, setPrimaryMusclesSelected] = useState([]);
     const [secondaryMusclesSelected, setSecondaryMusclesSelected] = useState([]);
-    const [descriptionExercise,setDescriptionExercise] = useState([]);
+    const [descriptionExercise,setDescriptionExercise] = useState("");
 
 
     const saveNameExercise = (e) => {
@@ -88,6 +90,9 @@ function NewExercisePage(){
     },[nameExercise]);
 
     const submitInsertNewExercise = () => {
+        if (oldImageExercise !== imageExercise) {
+            // elimina la vecchia immagine
+        }
 
         navigate(linkExerciseManagement);
     }
@@ -154,7 +159,7 @@ function NewExercisePage(){
 
                         <div style={{float:'right', marginTop: '2%', marginBottom:"3%"}}>
                             <Button variant="primary" type="submit" disabled={disabledSubmit}>
-                                Aggiungi Esercizio
+                                Modifica Esercizio
                             </Button>
                         </div>
                     </Container>
@@ -164,4 +169,4 @@ function NewExercisePage(){
     );
 }
 
-export default NewExercisePage;
+export default ModificationExercisePage;

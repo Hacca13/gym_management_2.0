@@ -189,12 +189,9 @@ function NewCoursePage(){
                             <Col md={3}>
                                 <Card  style={{margin:"3%"}} id={"course-add-card"}>
                                     <Card.Body>
-
-                                        <Col  style={{marginTop:"20%", marginLeft:"2%",alignItems:"center"}}>
-                                            <Button variant="primary" onClick={addCardIntolist}>Aggiungi Giorno</Button>
-                                        </Col>
-
-
+                                            <center >
+                                                <Button variant="primary" onClick={addCardIntolist}>Aggiungi Giorno</Button>
+                                            </center>
                                     </Card.Body>
                                 </Card>
                             </Col>
