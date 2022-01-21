@@ -10,6 +10,7 @@ import NewCoursePage from "./view/newCourse";
 import NewExercisePage from "./view/newExercise";
 import ModificationExercisePage from "./view/modificationExercise";
 import AddUserToCourse from "./view/addUserToCourse";
+import TesterFunction from "./view/testing";
 
 const prefixLink ="/admin";
 const linkHome = prefixLink+'/home';
@@ -20,6 +21,8 @@ const linkNewCourse = prefixLink+'/nuovo-corso';
 const linkNewExercise = prefixLink+'/nuovo-esercizio';
 const linkAddUserToCourse = prefixLink+'/aggiungi-un-utente-al-corso';
 const linkModificationExercise = prefixLink+'/modifica-esercizio/:idExercise';
+
+const linkTesting = prefixLink+"/testing";
 
 function App() {
 
@@ -34,9 +37,10 @@ function App() {
 
                     <Route exact path={linkNewSubscriptions} element={<NewSubscriptionsPage/>}/>
                     <Route exact path={linkNewCourse} element={<NewCoursePage/>}/>
-                    <Route exact path={linkNewExercise} element={<NewExercisePage nameExercise={""} imageExercise={""} secondaryMusclesSelected={[]} primaryMusclesSelected={[]} isTheExerciseTime={false} linkExercise={""} descriptionExercise={""}/>}/>
+                    <Route exact path={linkNewExercise} element={<NewExercisePage/>}/>
                     <Route exact path={linkAddUserToCourse} element={<AddUserToCourse />} />
 
+                    <Route exact path={linkTesting} element={<TesterFunction/>} />
 
                     <Route path="*" element={<PageNotFound/>}/>
 

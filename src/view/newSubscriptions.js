@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import FormPeriodSubscription from "../componets/componentsNewSubscription/formNewPeriodSubscription";
 import FormRevenueSubscription from "../componets/componentsNewSubscription/formNewRevenueSubscription";
 import FormCourseSubscription from "../componets/componentsNewSubscription/formNewCourseSubscription";
+import SelectUser from "../componets/componentsGeneric/selectUser";
 
 const prefixLink ="/admin";
 const linkSubscriptionsManagement = prefixLink+'/gestione-abbonamenti';
@@ -298,11 +299,7 @@ function NewSubscriptionsPage(){
                         </Row>
                         <Row>
                             <Col>
-                                <Form.Group as={Col} controlId="subscription-user">
-                                    <FloatingLabel className="mb-3" label="Nome o Cognome utente">
-                                        <Form.Control type="text" value={userData.name + " " + userData.surname} placeholder="Nome o Cognome utente" onChange={searchUserForSubscription}/>
-                                    </FloatingLabel>
-                                </Form.Group>
+                               <SelectUser/>
 
                             </Col>
                             <Col style={{marginLeft:"3%"}}>
@@ -339,25 +336,10 @@ function NewSubscriptionsPage(){
                             </Col>
                         </Row>
                         <Row className="mb-3" style={{marginLeft:"0.2%"}}>
-                            <Col>
-                                <ListGroup style={{marginTop:"-3px",marginLeft:"-2%"}}>
-                                    {userList.map((user,index) => (
-                                        <ListGroup.Item as="li" id={index} action onClick={()=>{
-                                            refreshSubscription("idUserDatabase",user.idUserDatabase);
-                                            const tempUser = {
-                                                "name": user.name,
-                                                "surname": user.surname,
-                                                "idUserDatabase": user.idUserDatabase,
-                                            };
-                                            setUserData(tempUser);
-                                            resetListUser();
-                                        }} >{user.name}</ListGroup.Item>
-                                    ))}
-                                </ListGroup>
-                            </Col>
+
                             <Col>
                                 <Row>
-                                    <h3 style={{marginLeft:"3%",marginBottom:"4%"}}>Saldo:</h3>
+                                    <h3 style={{marginLeft:"3%",marginBottom:"3%",marginTop:"2%"}}>Saldo:</h3>
                                 </Row>
                                 <Row >
                                     <Form.Group as={Col} md={5} controlId="subscription-total-amount" style={{marginLeft:"3%"}}>

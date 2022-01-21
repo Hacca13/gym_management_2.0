@@ -37,7 +37,8 @@ function QuickLinks(){
                     <p style={{marginTop:'10%'}}>Nuovo Esercizio</p>
                 </ListGroup.Item>
                 <ListGroup.Item variant='secondary' action  onClick={() => setModalShow(true)} className='quick-link'>
-                    Aggiungi un utente ad un Corso
+                    <img src={profile_user_icon} style={{width:'50px',height:'50px'}}/>
+                    <p style={{marginTop:'10%'}}>Aggiungi utenti ad un Corso</p>
                 </ListGroup.Item>
             </ListGroup>
             <AddUserToCourse

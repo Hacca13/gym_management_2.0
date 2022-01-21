@@ -8,14 +8,32 @@ const prefixLink ="/admin";
 const linkExerciseManagement = prefixLink+'/gestione-esercizi';
 
 var muscleOptions = [
-    { label: "Grapes 🍇", value: "grapes" },
-    { label: "Mango 🥭", value: "mango" },
-    { label: "Strawberry 🍓", value: "strawberry" },
+    { label: "Pettorali", value: "pettorali" },
+    { label: "Tricipiti", value: "tricipiti" },
+    { label: "Addominali", value: "addominali" },
+    { label: "Quadricipiti", value: "quadricipiti" },
+    { label: "Bicipiti Femorali", value: "bicipiti-femorali" },
+    { label: "Polpacci", value: "polpacci" },
+    { label: "Deltoidi Posteriori", value: "deltoidi-posteriori" },
+    { label: "Deltoidi Anteriori", value: "deltoidi-anteriori" },
+    { label: "Dorsali", value: "dorsali" },
+    { label: "Bicipiti", value: "bicipiti" },
+    { label: "Glutei", value: "glutei" },
+    { label: "Avambracci", value: "avambracci" },
 ];
 var muscleSecondOptions = [
-    { label: "Grapes 🍇", value: "grapes" },
-    { label: "Mango 🥭", value: "mango" },
-    { label: "Strawberry 🍓", value: "strawberry" },
+    { label: "Pettorali", value: "pettorali" },
+    { label: "Tricipiti", value: "tricipiti" },
+    { label: "Addominali", value: "addominali" },
+    { label: "Quadricipiti", value: "quadricipiti" },
+    { label: "Bicipiti Femorali", value: "bicipiti-femorali" },
+    { label: "Polpacci", value: "polpacci" },
+    { label: "Deltoidi Posteriori", value: "deltoidi-posteriori" },
+    { label: "Deltoidi Anteriori", value: "deltoidi-anteriori" },
+    { label: "Dorsali", value: "dorsali" },
+    { label: "Bicipiti", value: "bicipiti" },
+    { label: "Glutei", value: "glutei" },
+    { label: "Avambracci", value: "avambracci" },
 ];
 
 
@@ -29,7 +47,7 @@ function NewExercisePage(){
     const [isTheExerciseTime,setIsTheExerciseTime] = useState(false);
     const [linkExercise,setLinkExercise] = useState("");
 
-    const [primaryMusclesSelected, setPrimaryMusclesSelected] = useState("");
+    const [primaryMusclesSelected, setPrimaryMusclesSelected] = useState([]);
     const [secondaryMusclesSelected, setSecondaryMusclesSelected] = useState([]);
     const [descriptionExercise,setDescriptionExercise] = useState([]);
 

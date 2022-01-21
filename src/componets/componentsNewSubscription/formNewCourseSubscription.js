@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Col, FloatingLabel, Form, ListGroup, Row} from "react-bootstrap";
+import SelectCourse from "../componentsGeneric/selectCourse";
+import SelectCourses from "../componentsGeneric/selectCourses";
 
 function FormCourseSubscription(props){
 
@@ -41,24 +43,8 @@ function FormCourseSubscription(props){
             </Row>
             <Col md={8} style={{margin:"3% auto"}}>
                 <Row>
-                    <Form.Group as={Col} controlId="subscription-course-name">
-                        <FloatingLabel className="mb-3" label="Nome del Corso">
-                            <Form.Control type="text" value={corseData.nameCourse} placeholder="Nome del Corso" onChange={searchCourseForSubscription}/>
-                        </FloatingLabel>
-                    </Form.Group>
-                    <ListGroup id="subscription-course-list">
-                        {courseList.map((course,indexCourse) => (
-                            <ListGroup.Item as="li" key={indexCourse+"course"} id={indexCourse+"course"} action onClick={()=>{
-                                props.refreshCourseSubscription("idCourseDatabase",course.idCourseDatabase);
-                                const tempCourse = {
-                                    "idCourseDatabase": course.idCourseDatabase,
-                                    "nameCourse": course.nameCourse,
-                                };
-                                setCorseData(tempCourse);
-                                resetListCourse();
-                            }} >{course.nameCourse}</ListGroup.Item>
-                        ))}
-                    </ListGroup>
+
+                    <SelectCourses/>
                 </Row>
                 <Row style={{marginTop: "2%"}}>
                     <Col style={{marginRight:"5%"}}>
