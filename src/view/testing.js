@@ -1,6 +1,7 @@
 import React, {useState} from "react";
+import axios from "axios";
 
-const linkTesting = "https://pf9x7dtw45.execute-api.us-east-2.amazonaws.com/Testing/testing";
+const linkTesting = "https://3fuezjznz6.execute-api.eu-west-1.amazonaws.com/testing";
 
 function TesterFunction(){
     const [testList,setTestList] = useState([
@@ -9,6 +10,9 @@ function TesterFunction(){
             nameUser: ""
         }
     ]);
+    const api = axios.create({
+        baseURL: linkTesting
+    });
 
     const contactServer = async () => {
        /* const response = await fetch(linkTesting).then((response) => {console.log(response.json())
@@ -29,7 +33,23 @@ function TesterFunction(){
 
             setTestList(tempList);
         });*/
-        await fetch(linkTesting);
+        api.get('/').then(res => {
+            var tempList=[];
+            let resBody = res.data.body;
+
+            for(var i=0;i<resBody.length;i++){
+                var tempItem = {
+                    id: "",
+                    nameUser: "",
+                };
+                tempItem.id = resBody[i].id;
+                tempItem.nameUser = resBody[i].nameUser;
+                tempList.push(tempItem);
+            }
+            setTestList(tempList)
+
+        });
+
     };
 
     return(
